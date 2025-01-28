@@ -1,0 +1,59 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    --margem-horizontal: 30px;
+    --margem-vertical: 30px;
+    --quixada-azul: #3c428d ; 
+    --quixada-amarelo: #eddb33;
+}
+
+#tela{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--quixada-azul);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.tela-container {
+    
+    margin: var(--margem-vertical) var(--margem-horizontal); /* Define as margens externas */
+    background-color: white;
+    width: calc(100% - (2 * var(--margem-horizontal))); /* Subtrai as margens horizontais (2 lados) */
+    height: calc(100% - (2 * var(--margem-vertical)));; /* Subtrai as margens verticais (10px + 10px) */
+    box-sizing: border-box; /* Inclui bordas e padding no cálculo total */
+
+    border-radius: 5px ;
+    box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.5);
+}
+
+#header{
+    /* top-left | top-right | bottom-right | bottom-left */
+    border-radius: 5px 5px 0 0;
+    position: static;
+    background-color: var(--quixada-amarelo);
+
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid;
+    border-color: gray;
+
+
+    height: 70px;;
+}
+
+.tela-main{
+    padding: 2%;
+}
+
+
+
+thead th:nth-child(n) {
+    background-color: aquamarine    ;
+    padding: 5px;
+}
