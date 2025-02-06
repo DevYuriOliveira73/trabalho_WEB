@@ -1,18 +1,35 @@
-const {url} = require('./link')
+async function fetchData() {
+  try {
+    const response = await fetch('prefeituraQuixada.json');
+    const json = await response.json(); // Pegamos o JSON inteiro
+    console.log("JSON carregado:", json); // Verifica a estrutura dos dados
 
+    const dados = json.data || json; // Se "data" existir, usa "json.data"; senão, usa "json"
 
-const options = {
-  method: 'GET',
-  headers: {
-    'x-rapidapi-key': '279177b5b4msh2c043493d67d3a4p1634d9jsn81d450455ce7',
-    'x-rapidapi-host': 'countries-states-and-cities.p.rapidapi.com'
+    if (!Array.isArray(dados)) {
+      throw new Error("Os dados carregados não são uma lista.");
+    }
+
+    const objeto = dados.map((funcionario) => ({
+      funcionario: funcionario["Nome do funcionário"],
+      cargo: funcionario["Cargo"],
+      setor: funcionario["Setor"],
+      matricula: funcionario["Matricula"],
+      bruto: funcionario["Proventos"],
+      desconto: funcionario["Descontos"],
+      liquido: funcionario["Líquido"]
+    }));
+
+    //console.log("Funcionários formatados:", objeto);
+    return objeto;
+  } catch (error) {
+    console.error("Erro ao carregar o arquivo:", error);
   }
-};
+}
 
-fetch(url)
-  .then((response) => {
-    return response.text()
-  })
-  .then((response)=> console.log(response))
-
+// Chamada da função
+fetchData()
+  .then((dados) => {
+    console.log("Dados processados:", dados);
+  });
 
