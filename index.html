@@ -13,39 +13,43 @@
 
     <section class="tela-container">
         <header id="header">
+            <h1>Dados da Prefeitura de Quixadá</h1>
+
+            <div class="ordenar">
+                <label for="ordenacao">Ordenar por:</label>
+                <select name="ordenar" id="ordenacao">
+                    <option value="alfabetica"selected>ordem alfabética</option>
+                    <option value="maiorSalario">maior salário</option>
+                    <option value="menorSalario" >menor salário</option>
+                    <option value="cargo">cargo</option>
+                </select>
+            </div>
             
+
         </header>
         <main class="tela-main">
 
-            <table>
-                <caption>Dados da Prefeitura de Quixadá</caption>
-                <thead>
-                    <tr>
-                        <th>Nome funcionário</th>
-                        <th>cargo</th>
-                        <th>setor</th>
-                        <th>matricula</th>
-                        <th>Salário Bruto</th>
-                        <th>descontos</th>
-                        <th>Salário Líquido</th>
-                    </tr>
-                </thead>
-                <tbody id="corpo">
-                    
-
-                </tbody>
-            </table>
-            <div id="tabela"></div>
+            <div style=" overflow-x: hidden; height: 550px;">
+                <table >
+                
+                    <thead>
+                        <tr>
+                            <th>Funcionário</th>
+                            <th>Cargo</th>
+                            <th>Setor</th>
+                            <th>Matricula</th>
+                            <th>Salário Bruto</th>
+                            <th>Descontos</th>
+                            <th>Salário Líquido</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpo" >
+                
+                    </tbody>
+                </table>
+            </div>
             <ol>
-                <li>
-                    colocar filtros
-                    <ul>
-                        <li>quem ganha mais</li>
-                        <li>quem ganha menos</li>
-                        <li>maior percentual de desconto</li>
-                        <li>ordenar por cargo</li>
-                    </ul>
-                </li>
+                
                 <li>
                     analises
                     <ul>

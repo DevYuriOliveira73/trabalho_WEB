@@ -6,7 +6,7 @@
 :root{
     --margem-horizontal: 30px;
     --margem-vertical: 30px;
-    --quixada-azul: #3c428d ; 
+    --quixada-azul: #C6C2DE ; 
     --quixada-amarelo: #eddb33;
 }
 
@@ -43,17 +43,45 @@
     border-bottom: 1px solid;
     border-color: gray;
 
-
     height: 70px;;
+
+/*teste... abaixo*/
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
 }
 
 .tela-main{
     padding: 2%;
 }
 
+#corpo{
+    overflow-y: scroll;
+   
+}
 
 
-thead th:nth-child(n) {
-    background-color: aquamarine    ;
-    padding: 5px;
+
+
+
+thead,
+tfoot {
+  background-color: rgb(228 240 245);
+}
+
+th,
+td {
+  border: 1px solid rgb(160 160 160);
+  padding: 8px 10px;
+}
+
+td:last-of-type {
+  text-align: center;
+}
+tbody > tr:hover{
+    background-color: rgb(237 200 150) !important; 
+}
+
+tbody > tr:nth-of-type(even) {
+  background-color: rgb(237 238 242);
 }
