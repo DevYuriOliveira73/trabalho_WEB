@@ -1,6 +1,6 @@
 async function fetchData() {
     try {
-        const response = await fetch("prefeituraQuixada.json");
+        const response = await fetch("https://raw.githubusercontent.com/DevYuriOliveira73/jsonPrefeituraQuixada/refs/heads/main/prefeituraQuixada.json");
         const json = await response.json();
         console.log("JSON carregado:", json);
 
@@ -56,12 +56,7 @@ function titleCase(frase) {
         )
         .join(" ");
 }
-/*
-                    alfabetica
-                    maiorSalario
-                    menorSalario
-                    cargo
-*/ 
+
 function ordenacao(valor, array) {
     if (valor === "cargo") {
         
