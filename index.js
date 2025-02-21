@@ -28,7 +28,8 @@ async function fetchData() {
                                 
 
                                 return {
-                                funcionario: titleCase(funcionario["Nome do funcionário"]),
+                                
+                                funcionario: funcionario["Nome do funcionário"],
                                 cargo: funcionario["Cargo"].split(' ').slice(2).join(' '),
                                 setor: funcionario["Setor"],
                                 matricula: funcionario["Matricula"],
@@ -46,17 +47,6 @@ async function fetchData() {
     }
 }
 
-function titleCase(frase) {
-    return frase
-        .split(" ")
-        .map(
-            (palavra) =>
-                palavra.charAt(0).toUpperCase() +
-                palavra.slice(1).toLowerCase()
-        )
-        .join(" ");
-}
-
 function ordenacao(valor, array) {
     if (valor === "cargo") {
         
@@ -72,33 +62,18 @@ function ordenacao(valor, array) {
     }
     if (valor === "alfabetica") {
 
-        return array.sort((a, b) => a.nome.localeCompare(b.nome));
+        return array.sort((a, b) => a.funcionario.localeCompare(b.funcionario));
     }
     return array;
 }
 
-function ordenarTabela(funcionarios) {
-    const select = document.getElementById("ordenacao");
 
-    if (!select) {
-        console.error("Elemento #ordenacao não encontrado.");
-        return;
-    }
-
-    select.addEventListener("change", () => {
-        const valor = select.value;
-        const funcionariosOrdenados = ordenacao(valor, funcionarios);
-        renderizarTabela(funcionariosOrdenados);
-    });
-    
-    return funcionarios; // Retorna o array atualizado
-}
 
 function renderizarTabela(funcionarios) {
     const divFuncionario = document.querySelector("#corpo");
 
     if (!divFuncionario) {
-        console.error("Elemento #corpo não encontrado.");
+        alert("Elemento #corpo não encontrado.");
         return;
     }
 
@@ -117,7 +92,6 @@ function renderizarTabela(funcionarios) {
                 const valorDescontado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(bruto - liquido);
 
                 return(
-
                         `<tr>
                         <td>${funcionario}</td>
                         <td>${cargo}</td>
@@ -135,90 +109,37 @@ function renderizarTabela(funcionarios) {
     divFuncionario.innerHTML = listaHTML;
 }
 
-function renderizarTabela(funcionarios) {
-    const divFuncionario = document.querySelector("#corpo");
-
-    if (!divFuncionario) {
-        console.error("Elemento #corpo não encontrado.");
-        return;
-    }
-
-    if (!funcionarios.length) {
-        divFuncionario.innerHTML =
-            "<tr><td colspan='7'>Nenhum dado disponível.</td></tr>";
-        return;
-    }
-
-    const listaHTML = funcionarios
-        .map(
-            ({ funcionario, cargo, setor, matricula, bruto, liquido }) => {
-
-                let valorBrBruto = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(bruto);
-                let valorBrLiquido = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(liquido);
-                const valorDescontado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(bruto - liquido);
-
-                return(
-
-                        `<tr>
-                        <td>${funcionario}</td>
-                        <td>${cargo}</td>
-                        <td>${setor}</td>
-                        <td>${matricula}</td>
-                        <td>${valorBrBruto}</td>
-                        <td>${valorDescontado}</td>
-                        <td>${valorBrLiquido}</td>
-                        </tr>`
-                    )
-                }
-        )
-        .join("");
-
-    divFuncionario.innerHTML = listaHTML;
-}
-
-function filtragemTabela(funcionarios) {
-    const botao = document.getElementById('lupa');
-
-    const funcionariosOrdenados = ordenarTabela(funcionarios);
-    renderizarTabela(funcionariosOrdenados);
-    
-
-    botao.addEventListener("click", ()=> {
-
-        const colunaDePesquisa = document.getElementById('filtragem').value
-        const valor_pesquisa = document.getElementById('pesquisar').value
-
-        const valorDeOrdenacao = document.getElementById("ordenacao").value;
-
-        
-        alert(`Callback do botão funcionou! 
-            coluna: ${colunaDePesquisa}; 
-            pesquisa: ${valor_pesquisa}; 
-            ordenar = ${valorDeOrdenacao}`)
-
-        const funcionariosFiltrados = funcionarios.filter((funcionario) => {
-            return funcionario[colunaDePesquisa].toUpperCase().includes(valor_pesquisa.toUpperCase())
-        })
-
-        console.log({funcionariosFiltrados})
-
-        const funcionariosOrdenados = ordenacao(valorDeOrdenacao, funcionariosFiltrados);
-        renderizarTabela(funcionariosOrdenados);
 
 
-    })
-    
+
+function vamosRodarAutoBot(funcionarios) {
+    const colunaDePesquisa = document.getElementById('filtragem').value
+    const valor_pesquisa = document.getElementById('pesquisar').value
+    const valorDeOrdenacao = document.getElementById("ordenacao").value;
+
+    const funcionariosFiltrados = funcionarios.filter((funcionario) => {
+        return funcionario[colunaDePesquisa]
+            .toUpperCase()
+            .includes(valor_pesquisa.toUpperCase())
+        });
+
+    const funcionariosOrdenados = ordenacao(valorDeOrdenacao, funcionariosFiltrados);
+    renderizarTabela(funcionariosOrdenados)
 }
 
 
 // Executa a busca dos dados e renderiza a tabela
 fetchData().then((dados) => {
+    
+    const select = document.getElementById("ordenacao");
+    const botao = document.getElementById('lupa');
 
-    filtragemTabela(dados)
-    //const filtrarFuncionarios = filtragemTabela(dados);    
-    //const funcionariosOrdenados = ordenarTabela(dados);
-    //renderizarTabela(filtrarFuncionarios);
-    //renderizarTabela(funcionariosOrdenados);
+
+    select.addEventListener("change", () =>vamosRodarAutoBot(dados))
+    botao.addEventListener("click", () =>vamosRodarAutoBot(dados))
+    
+    renderizarTabela(dados)
+
+
     
 });
-
