@@ -135,9 +135,90 @@ function renderizarTabela(funcionarios) {
     divFuncionario.innerHTML = listaHTML;
 }
 
+function renderizarTabela(funcionarios) {
+    const divFuncionario = document.querySelector("#corpo");
+
+    if (!divFuncionario) {
+        console.error("Elemento #corpo não encontrado.");
+        return;
+    }
+
+    if (!funcionarios.length) {
+        divFuncionario.innerHTML =
+            "<tr><td colspan='7'>Nenhum dado disponível.</td></tr>";
+        return;
+    }
+
+    const listaHTML = funcionarios
+        .map(
+            ({ funcionario, cargo, setor, matricula, bruto, liquido }) => {
+
+                let valorBrBruto = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(bruto);
+                let valorBrLiquido = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(liquido);
+                const valorDescontado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(bruto - liquido);
+
+                return(
+
+                        `<tr>
+                        <td>${funcionario}</td>
+                        <td>${cargo}</td>
+                        <td>${setor}</td>
+                        <td>${matricula}</td>
+                        <td>${valorBrBruto}</td>
+                        <td>${valorDescontado}</td>
+                        <td>${valorBrLiquido}</td>
+                        </tr>`
+                    )
+                }
+        )
+        .join("");
+
+    divFuncionario.innerHTML = listaHTML;
+}
+
+function filtragemTabela(funcionarios) {
+    const botao = document.getElementById('lupa');
+
+    const funcionariosOrdenados = ordenarTabela(funcionarios);
+    renderizarTabela(funcionariosOrdenados);
+    
+
+    botao.addEventListener("click", ()=> {
+
+        const colunaDePesquisa = document.getElementById('filtragem').value
+        const valor_pesquisa = document.getElementById('pesquisar').value
+
+        const valorDeOrdenacao = document.getElementById("ordenacao").value;
+
+        
+        alert(`Callback do botão funcionou! 
+            coluna: ${colunaDePesquisa}; 
+            pesquisa: ${valor_pesquisa}; 
+            ordenar = ${valorDeOrdenacao}`)
+
+        const funcionariosFiltrados = funcionarios.filter((funcionario) => {
+            return funcionario[colunaDePesquisa].toUpperCase().includes(valor_pesquisa.toUpperCase())
+        })
+
+        console.log({funcionariosFiltrados})
+
+        const funcionariosOrdenados = ordenacao(valorDeOrdenacao, funcionariosFiltrados);
+        renderizarTabela(funcionariosOrdenados);
+
+
+    })
+    
+}
+
+
 // Executa a busca dos dados e renderiza a tabela
 fetchData().then((dados) => {
-    const funcionariosOrdenados = ordenarTabela(dados);
-    renderizarTabela(funcionariosOrdenados);
+
+    filtragemTabela(dados)
+    //const filtrarFuncionarios = filtragemTabela(dados);    
+    //const funcionariosOrdenados = ordenarTabela(dados);
+    //renderizarTabela(filtrarFuncionarios);
+    //renderizarTabela(funcionariosOrdenados);
+    
 });
 

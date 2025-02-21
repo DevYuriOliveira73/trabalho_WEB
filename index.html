@@ -14,18 +14,52 @@
     <section class="tela-container">
         <header id="header">
             <h1>Dados da Prefeitura de Quixadá</h1>
-
-            <div class="ordenar">
-                <label for="ordenacao">Ordenar por:</label>
-                <select name="ordenar" id="ordenacao">
-                    <option value="alfabetica"selected>Ordem Alfabética</option>
-                    <option value="maiorSalario">Maior Salário Líquido</option>
-                    <option value="menorSalario" >Menor Salário Líquido</option>
-                    <option value="cargo">cargo</option>
-                </select>
-            </div>
+            <!--teste -->
+            <section style="display: flex">
+                
+                <div class="filtrar">
+                    <label for="filtragem">Filtrar:
+                        <select name="filtrar" id="filtragem">
+                            <option 
+                                value="" selected>
+                                Selecione para filtragem
+                            </option>
+                            <option 
+                                value="funcionario">
+                                Funcionário
+                            </option>
+                            <option 
+                                value="cargo">
+                                Cargo
+                            </option>
+                            <option 
+                                value="setor">
+                                Setor
+                            </option>
+                        </select>
+                    </label>
+                </div>
+                
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar..." name="" id="pesquisar">
+                    <button id="lupa">
+                        🔍
+                    </button>
+                </div>
+            </section>
             
-
+                <!-- sds-->
+                <div class="ordenar">
+                    <label for="ordenacao">Ordenar por:</label>
+                    <select name="ordenar" id="ordenacao">
+                        <option value="alfabetica"selected>Ordem Alfabética</option>
+                        <option value="maiorSalario">Maior Salário Líquido</option>
+                        <option value="menorSalario" >Menor Salário Líquido</option>
+                        <option value="cargo">cargo</option>
+                    </select>
+                </div>
+            
+        
         </header>
         <main class="tela-main">
 
@@ -48,23 +82,7 @@
                     </tbody>
                 </table>
             </div>
-            <ol>
-                
-                <li>
-                    analises
-                    <ul>
-                        <li>media salarial</li>
-                        <li>filtrar cargo</li>
-                        <li>o maior salario de cada cargo</li>
-                    </ul>
-                </li>
-                <li>
-                    biblioteca
-                    <ul>
-                        <li>biblioteca Font Awesome</li>
-                    </ul>
-                </li>
-            </ol>
+            
 
         </main>
 
