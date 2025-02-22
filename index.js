@@ -132,11 +132,11 @@ function vamosRodarAutoBot(funcionarios) {
 fetchData().then((dados) => {
     
     const select = document.getElementById("ordenacao");
-    const botao = document.getElementById('lupa');
+    const inputDePesquisa = document.getElementById('pesquisar');
 
 
     select.addEventListener("change", () =>vamosRodarAutoBot(dados))
-    botao.addEventListener("click", () =>vamosRodarAutoBot(dados))
+    inputDePesquisa.addEventListener("input", () =>vamosRodarAutoBot(dados))
     
     renderizarTabela(dados)
 
