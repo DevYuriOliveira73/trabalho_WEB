@@ -22,8 +22,8 @@
                         </label>
                     </div>
                     <div class="search-bar">
-                        <input type="text" placeholder="Pesquisar..." name="" id="pesquisar">
-                        <button id="lupa"> ideia colocar um x para sumir o text pesquisa </button>
+                        <input type="text" placeholder="Pesquisar..." id="pesquisar" />
+                        <button id="lupa">🔍</button>
                     </div>
                 </section>
                 <div class="ordenar">
@@ -32,12 +32,12 @@
                         <option value="alfabetica" selected>Ordem Alfabética</option>
                         <option value="maiorSalario">Maior Salário Líquido</option>
                         <option value="menorSalario">Menor Salário Líquido</option>
-                        <option value="cargo">cargo</option>
+                        <option value="cargo">Cargo</option>
                     </select>
                 </div>
             </header>
             <main class="tela-main">
-                <div style=" overflow-x: hidden; height: 550px;">
+                <div id="table-container" style="overflow-x: hidden; height: 550px;">
                     <table>
                         <thead>
                             <tr>
@@ -53,10 +53,10 @@
                         <tbody id="corpo"></tbody>
                     </table>
                 </div>
-            </main>
-            <footer>
+                <!-- Container para as métricas -->
                 <div id="metricas"></div>
-            </footer>
+            </main>
+            <footer></footer>
         </section>
     </body>
 </html>

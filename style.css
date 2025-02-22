@@ -82,3 +82,8 @@ tbody > tr:hover {
 tbody > tr:nth-of-type(even) {
     background-color: rgb(237 238 242);
 }
+
+.highlight {
+    background-color: red !important;
+    transition: background-color 0.5s ease;
+}
