@@ -1,16 +1,16 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
-:root{
+:root {
     --margem-horizontal: 30px;
     --margem-vertical: 30px;
-    --quixada-azul: #C6C2DE ; 
+    --quixada-azul: #c6c2de;
     --quixada-amarelo: #eddb33;
 }
 
-#tela{
+#tela {
     width: 100vw;
     height: 100vh;
     background-color: var(--quixada-azul);
@@ -20,20 +20,22 @@
     align-items: center;
 }
 
-
 .tela-container {
-    
     margin: var(--margem-vertical) var(--margem-horizontal); /* Define as margens externas */
     background-color: white;
-    width: calc(100% - (2 * var(--margem-horizontal))); /* Subtrai as margens horizontais (2 lados) */
-    height: calc(100% - (2 * var(--margem-vertical)));; /* Subtrai as margens verticais (10px + 10px) */
+    width: calc(
+        100% - (2 * var(--margem-horizontal))
+    ); /* Subtrai as margens horizontais (2 lados) */
+    height: calc(
+        100% - (2 * var(--margem-vertical))
+    ); /* Subtrai as margens verticais (10px + 10px) */
     box-sizing: border-box; /* Inclui bordas e padding no cálculo total */
 
-    border-radius: 5px ;
+    border-radius: 5px;
     box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.5);
 }
 
-#header{
+#header {
     /* top-left | top-right | bottom-right | bottom-left */
     border-radius: 5px 5px 0 0;
     position: static;
@@ -43,52 +45,45 @@
     border-bottom: 1px solid;
     border-color: gray;
 
-    height: 70px;;
+    height: 70px;
 
-/*teste... abaixo*/
+    /*teste... abaixo*/
     display: flex;
     justify-content: space-between;
     padding: 5px;
 }
 
-.tela-main{
+.tela-main {
     padding: 2%;
 }
 
-#corpo{
+#corpo {
     overflow-y: scroll;
-   
 }
-
-
-
-
 
 thead,
 tfoot {
-  background-color: rgb(228 240 245);
+    background-color: rgb(228 240 245);
 }
 
 th,
 td {
-  border: 1px solid rgb(160 160 160);
-  padding: 8px 10px;
+    border: 1px solid rgb(160 160 160);
+    padding: 8px 10px;
 }
 
 td:last-of-type {
-  text-align: center;
+    text-align: center;
 }
-tbody > tr:hover{
-    background-color: rgb(237 200 150) !important; 
+tbody > tr:hover {
+    background-color: rgb(237 200 150) !important;
 }
 
 tbody > tr:nth-of-type(even) {
-  background-color: rgb(237 238 242);
+    background-color: rgb(237 238 242);
 }
 
 .highlight {
     background-color: red !important;
     transition: background-color 0.5s ease;
-  }
-  
-
+}
