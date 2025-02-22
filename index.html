@@ -1,97 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trabalho Final</title>
-    <link rel="stylesheet" href="style.css">
-
-    <script src="index.js" defer></script>
-
-</head>
-<body id="tela">
-
-    <section class="tela-container">
-        <header id="header">
-            <h1>Dados da Prefeitura de Quixadá</h1>
-            
-            <section style="display: flex">
-                
-                <div class="filtrar">
-                    <label for="filtragem">Filtrar:
-                        <select name="filtrar" id="filtragem">
-                            <option 
-                                value="" selected>
-                                Selecione para filtragem
-                            </option>
-                            <option 
-                                value="funcionario">
-                                Funcionário
-                            </option>
-                            <option 
-                                value="cargo">
-                                Cargo
-                            </option>
-                            <option 
-                                value="setor">
-                                Setor
-                            </option>
-                        </select>
-                    </label>
-                </div>
-                
-                <div class="search-bar">
-                    <input type="text" placeholder="Pesquisar..." name="" id="pesquisar">
-                    <button id="lupa">
-                        ideia colocar um x para sumir o text pesquisa
-                    </button>
-                </div>
-            </section>
-            
-                
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Trabalho Final</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="index.js" defer></script>
+    </head>
+    <body id="tela">
+        <section class="tela-container">
+            <header id="header">
+                <h1>Dados da Prefeitura de Quixadá</h1>
+                <section style="display: flex">
+                    <div class="filtrar">
+                        <label for="filtragem">Filtrar: <select name="filtrar" id="filtragem">
+                                <option value="" selected> Selecione para filtragem </option>
+                                <option value="funcionario"> Funcionário </option>
+                                <option value="cargo"> Cargo </option>
+                                <option value="setor"> Setor </option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="search-bar">
+                        <input type="text" placeholder="Pesquisar..." name="" id="pesquisar">
+                        <button id="lupa"> ideia colocar um x para sumir o text pesquisa </button>
+                    </div>
+                </section>
                 <div class="ordenar">
                     <label for="ordenacao">Ordenar por:</label>
                     <select name="ordenar" id="ordenacao">
-                        <option value="alfabetica"selected>Ordem Alfabética</option>
+                        <option value="alfabetica" selected>Ordem Alfabética</option>
                         <option value="maiorSalario">Maior Salário Líquido</option>
-                        <option value="menorSalario" >Menor Salário Líquido</option>
+                        <option value="menorSalario">Menor Salário Líquido</option>
                         <option value="cargo">cargo</option>
                     </select>
                 </div>
-            
-        
-        </header>
-        <main class="tela-main">
-
-            <div style=" overflow-x: hidden; height: 550px;">
-                <table >
-                
-                    <thead>
-                        <tr>
-                            <th>Funcionário</th>
-                            <th>Cargo</th>
-                            <th>Setor</th>
-                            <th>Matricula</th>
-                            <th>Salário Bruto</th>
-                            <th>Descontos</th>
-                            <th>Salário Líquido</th>
-                        </tr>
-                    </thead>
-                    <tbody id="corpo" >
-                
-                    </tbody>
-                </table>
-            </div>
-            
-
-        </main>
-
-
-        <footer>
-            <div id="metricas"></div>
-        </footer>
-        
-    </section>
-    
-</body>
+            </header>
+            <main class="tela-main">
+                <div style=" overflow-x: hidden; height: 550px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Funcionário</th>
+                                <th>Cargo</th>
+                                <th>Setor</th>
+                                <th>Matricula</th>
+                                <th>Salário Bruto</th>
+                                <th>Descontos</th>
+                                <th>Salário Líquido</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo"></tbody>
+                    </table>
+                </div>
+            </main>
+            <footer>
+                <div id="metricas"></div>
+            </footer>
+        </section>
+    </body>
 </html>
