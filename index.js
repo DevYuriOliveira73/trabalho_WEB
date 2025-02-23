@@ -199,35 +199,47 @@ function exibirMetricas(funcionarios) {
 }
 
 
+
 function vamosRodarAutoBot(funcionarios) {
 	const colunaDePesquisa = document.getElementById('filtragem').value
 	const valor_pesquisa = document.getElementById('pesquisar').value
 	const valorDeOrdenacao = document.getElementById("ordenacao").value;
+    const botaoFiltragem = document.getElementById("limpaFiltro")
 
     let funcionariosFiltrados = funcionarios    
 
     if(valor_pesquisa.length){
+
+        botaoFiltragem.style.display = 'flex'
+
         funcionariosFiltrados = funcionarios.filter((funcionario) => {
             return funcionario[colunaDePesquisa]
-                .toUpperCase()
                 .includes(valor_pesquisa.toUpperCase())
         });
     }
-
 
 	const funcionariosOrdenados = ordenacao(valorDeOrdenacao, funcionariosFiltrados);
 	renderizarTabela(funcionariosOrdenados);
 	exibirMetricas(funcionariosOrdenados);
 }
 
+function limparPesquisa() {
+    const botaoFiltragem = document.getElementById("limpaFiltro")
+    document.getElementById('filtragem').value = ''
+    document.getElementById('pesquisar').value = ''
+    
+    botaoFiltragem.style.display = 'none'; // Torna o botão invisível
+}
 
 // Executa a busca dos dados e renderiza a tabela
 fetchData().then((dados) => {
+    const botaoFiltragem = document.getElementById("limpaFiltro");
     const selectOrdenacao = document.getElementById("ordenacao");
     const inputDePesquisa = document.getElementById("pesquisar");
     const selectFiltragem = document.getElementById("filtragem");
 
 
+    botaoFiltragem.addEventListener("click", () => vamosRodarAutoBot(dados))
     selectFiltragem.addEventListener("change", () => vamosRodarAutoBot(dados))
     selectOrdenacao.addEventListener("change", () => vamosRodarAutoBot(dados))
     inputDePesquisa.addEventListener("input", () => vamosRodarAutoBot(dados))

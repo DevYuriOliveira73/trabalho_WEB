@@ -24,14 +24,11 @@
 }
 
 .filtro-coluna #filtragem{
-    
     height: 100%;
     margin-right: 1px;
     border: none;
     border-radius: var(--borda-pesquisa) 0 0 var(--borda-pesquisa);
-    padding-left: 3px ;
-
-    
+    padding-left: 3px;
 }
 
 .text-filtro {
@@ -42,8 +39,6 @@
 }
 
 .filtro-input {
-    /*background-color: bisque;*/
-    
     width: 400px;
     height: 100%;
     position: relative;
@@ -66,17 +61,21 @@
 }
 
 .filtro-input i {
-   position:  absolute;
-   right: 5px;
    font-size: 20px;
    color: rgb(94, 94, 94);
 }
 
 .filtro-input button {
-    all: unset;
+    
+    background: none;
+    border: none;
+    cursor: pointer;
+    position:  absolute;
+    right: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
+    display: none;
 }
 /*filtragem FIM*/
 
