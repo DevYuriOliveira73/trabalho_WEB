@@ -9,8 +9,8 @@ async function fetchData() {
 		if (!Array.isArray(dados)) {
 			throw new Error("Os dados carregados não são uma lista.");
 		}
-		const visu = [...new Set(dados.map(f => f["Cargo"].split(' ').slice(2).join(' ')))];
-		console.log(visu)
+		/*const visu = [...new Set(dados.map(f => f["Cargo"].split(' ').slice(2).join(' ')))];
+		console.log(visu)*/
 
 
 		const resultado = dados
@@ -19,10 +19,10 @@ async function fetchData() {
 				/*if (indice %2== 0) {
 				    console.log(funcionario["Nome do funcionário"], funcionario["Líquido"], typeof(funcionario["Líquido"]))
 				}*/
-				const valorAmericanoBruto = (parseFloat(funcionario["Proventos"].toString().padEnd(2, "0")).toFixed(5)) * 1000
+				const valorAmericanoBruto = (parseFloat(funcionario["Proventos"].toString().padEnd(2, "0"))) * 1000
 
 
-				const valorAmericanoLiquido = (parseFloat(funcionario["Líquido"].toString().padEnd(2, "0")).toFixed(2))
+				const valorAmericanoLiquido = (parseFloat(funcionario["Líquido"].toString().padEnd(2, "0")))
 
 
 
@@ -82,15 +82,15 @@ function renderizarTabela(funcionarios) {
                 let valorBrBruto = new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
-                }).format(bruto);
+                }).format(bruto.toFixed(5));
                 let valorBrLiquido = new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
-                }).format(liquido);
+                }).format(liquido.toFixed(2));
                 const valorDescontado = new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
-                }).format(bruto - liquido);
+                }).format(bruto.toFixed(5) - liquido.toFixed(2));
 
                 return (
                     `<tr>
@@ -193,7 +193,7 @@ function exibirMetricas(funcionarios) {
         <li><strong>Menor Desconto:</strong> R$ ${metricas.menorDescontos[0].desconto.toLocaleString("pt-BR", { minimumFractionDigits: 2 })} - ${formatarFuncionarios(metricas.menorDescontos)}</li>
         <li><strong>Média Salarial:</strong> R$ ${parseFloat(metricas.mediaSalarial).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</li>
         <li><strong>Desvio Padrão:</strong> R$ ${parseFloat(metricas.desvioPadrao).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</li>
-        <li><strong>Soma dos Salários Líquidos:</strong> R$ ${parseFloat(metricas.somaLiquidos).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</li>
+        <li><strong>Total da folhax:</strong> R$ ${parseFloat(metricas.somaLiquidos).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</li>
       </ul>
     `;
 }
@@ -204,11 +204,16 @@ function vamosRodarAutoBot(funcionarios) {
 	const valor_pesquisa = document.getElementById('pesquisar').value
 	const valorDeOrdenacao = document.getElementById("ordenacao").value;
 
-    const funcionariosFiltrados = funcionarios.filter((funcionario) => {
-        return funcionario[colunaDePesquisa]
-            .toUpperCase()
-            .includes(valor_pesquisa.toUpperCase())
-    });
+    let funcionariosFiltrados = funcionarios    
+
+    if(valor_pesquisa.length){
+        funcionariosFiltrados = funcionarios.filter((funcionario) => {
+            return funcionario[colunaDePesquisa]
+                .toUpperCase()
+                .includes(valor_pesquisa.toUpperCase())
+        });
+    }
+
 
 	const funcionariosOrdenados = ordenacao(valorDeOrdenacao, funcionariosFiltrados);
 	renderizarTabela(funcionariosOrdenados);
@@ -218,11 +223,13 @@ function vamosRodarAutoBot(funcionarios) {
 
 // Executa a busca dos dados e renderiza a tabela
 fetchData().then((dados) => {
-    const select = document.getElementById("ordenacao");
-    const inputDePesquisa = document.getElementById('pesquisar');
+    const selectOrdenacao = document.getElementById("ordenacao");
+    const inputDePesquisa = document.getElementById("pesquisar");
+    const selectFiltragem = document.getElementById("filtragem");
 
 
-    select.addEventListener("change", () => vamosRodarAutoBot(dados))
+    selectFiltragem.addEventListener("change", () => vamosRodarAutoBot(dados))
+    selectOrdenacao.addEventListener("change", () => vamosRodarAutoBot(dados))
     inputDePesquisa.addEventListener("input", () => vamosRodarAutoBot(dados))
 
     renderizarTabela(dados);
