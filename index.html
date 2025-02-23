@@ -15,32 +15,37 @@
 
                 <h1>Dados da Prefeitura de Quixadá</h1>
                 <!--AREA FILTRO-->
-                <section class="filtro">
-                    <div class="filtro-coluna">
-                        
-                            <select class="text-filtro" name="filtrar" id="filtragem">
-                                <option value="" selected> Coluna </option>
-                                <option value="funcionario"> Funcionário </option>
-                                <option value="cargo"> Cargo </option>
-                                <option value="setor"> Setor </option>
-                            </select>
-                        
+                <section id="area-filtro">
+                    <div class="filtro">
+                        <div class="filtro-coluna">
+                    
+                                <select class="text-filtro" name="filtrar" id="filtragem">
+                                    <option value="" selected> Coluna </option>
+                                    <option value="funcionario"> Funcionário </option>
+                                    <option value="cargo"> Cargo </option>
+                                    <option value="setor"> Setor </option>
+                                </select>
+                    
+                        </div>
+                        <div class="filtro-input">
+                            <input class="text-filtro" type="text" placeholder="Pesquise aqui" id="pesquisar"/>
+                            <button id="limpaFiltro" onclick="limparPesquisa()" ><i  class="fa-regular fa-circle-xmark"></i></button>
+                        </div>
                     </div>
-                    <div class="filtro-input">
-                        <input class="text-filtro" type="text" placeholder="Pesquisar..." id="pesquisar" />
-                        <button id="limpaFiltro" onclick="limparPesquisa()" ><i  class="fa-regular fa-circle-xmark"></i></button>
+                    <!--AREA FILTRO-->
+                    <div class="ordenar">
+                    
+                        <!--<label for="ordenacao">Ordenar por:</label>-->
+                        <select class="text-filtro" name="ordenar" id="ordenacao">
+                            <option value="alfabetica" selected>Ordem Alfabética</option>
+                            <option value="maiorSalario">Maior Salário Líquido</option>
+                            <option value="menorSalario">Menor Salário Líquido</option>
+                            <option value="cargo">Cargo</option>
+                        </select>
                     </div>
                 </section>
-                <!--AREA FILTRO-->
-                <div class="ordenar">
-                    <label for="ordenacao">Ordenar por:</label>
-                    <select name="ordenar" id="ordenacao">
-                        <option value="alfabetica" selected>Ordem Alfabética</option>
-                        <option value="maiorSalario">Maior Salário Líquido</option>
-                        <option value="menorSalario">Menor Salário Líquido</option>
-                        <option value="cargo">Cargo</option>
-                    </select>
-                </div>
+
+                
             </header>
             <main class="tela-main">
                 <div id="table-container" style="overflow-x: hidden; height: 550px;">

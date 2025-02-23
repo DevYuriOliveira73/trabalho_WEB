@@ -17,6 +17,11 @@
 
 
 /*filtragram INICIO*/
+
+#area-filtro {
+    display: flex;
+}
+
 .filtro {
     display: flex;
     width: 350px;
@@ -26,16 +31,17 @@
 .filtro-coluna #filtragem{
     height: 100%;
     margin-right: 1px;
-    border: none;
+
     border-radius: var(--borda-pesquisa) 0 0 var(--borda-pesquisa);
     padding-left: 3px;
 }
 
 .text-filtro {
     font-size: 12px;
-    color: gray;
+    color: rgb(45, 45, 45) ;
     font-weight: bold;
     background-color: var(--background-pesquisa);
+    border: none;
 }
 
 .filtro-input {
@@ -46,18 +52,13 @@
     align-items: center;
 }
 
-.filtro-input input {
-    border-radius: 0 var(--borda-pesquisa) var(--borda-pesquisa) 0;
+.filtro-input input { 
     position: absolute;
     height: 100%;
     width: 100%;
 
-    
-    border: none;
-
+    padding-right: 30px ;
     padding-left: 8px;
-
-    
 }
 
 .filtro-input i {
@@ -76,6 +77,17 @@
     justify-content: center;
     align-items: center;
     display: none;
+}
+
+.ordenar {
+    width: auto;
+    height: 30px;
+}
+
+.ordenar select {
+    margin-left: 2px;;
+    height: 100%;
+    border-radius: 0 var(--borda-pesquisa) var(--borda-pesquisa) 0;
 }
 /*filtragem FIM*/
 
