@@ -15,6 +15,21 @@
     --borda-pesquisa: 20px;
 }
 
+body {
+    width: 100vw;
+    background-color: var(--quixada-azul);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tela-container {
+    background-color: white;
+    width: 95%;
+    border-radius: 5px;
+    box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.5);
+}
 
 /*filtragram INICIO*/
 
@@ -93,30 +108,7 @@
 
 
 
-#tela {
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--quixada-azul);
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.tela-container {
-    margin: var(--margem-vertical) var(--margem-horizontal); /* Define as margens externas */
-    background-color: white;
-    width: calc(
-        100% - (2 * var(--margem-horizontal))
-    ); /* Subtrai as margens horizontais (2 lados) */
-    height: calc(
-        100% - (2 * var(--margem-vertical))
-    ); /* Subtrai as margens verticais (10px + 10px) */
-    box-sizing: border-box; /* Inclui bordas e padding no cálculo total */
-
-    border-radius: 5px;
-    box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.5);
-}
 
 #header {
     /* top-left | top-right | bottom-right | bottom-left */
@@ -137,7 +129,9 @@
 }
 
 .tela-main {
-    padding: 2%;
+    padding-top: 1%;
+    padding-bottom: 2% ;
+    /*teste de fundo*/
 }
 
 #corpo {
@@ -151,7 +145,7 @@ tfoot {
 
 th,
 td {
-    border: 1px solid rgb(160 160 160);
+    border-bottom: 1px solid rgb(0, 0, 0);
     padding: 8px 8px;
     font-size: 13px;
 }
