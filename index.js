@@ -9,34 +9,19 @@ async function fetchData() {
 		if (!Array.isArray(dados)) {
 			throw new Error("Os dados carregados não são uma lista.");
 		}
-		/*const visu = [...new Set(dados.map(f => f["Cargo"].split(' ').slice(2).join(' ')))];
-		console.log(visu)*/
-
 
 		const resultado = dados
 			.map((funcionario, indice, array) => {
 				if (indice === array.length - 1) return null; // Ignora o último elemento
-				/*if (indice %2== 0) {
-				    console.log(funcionario["Nome do funcionário"], funcionario["Líquido"], typeof(funcionario["Líquido"]))
-				}*/
-				const valorAmericanoBruto = (parseFloat(funcionario["Proventos"].toString().padEnd(2, "0"))) * 1000
-
-
-				const valorAmericanoLiquido = (parseFloat(funcionario["Líquido"].toString().padEnd(2, "0")))
-
-
-
-
+				const valorAmericanoBruto = (parseFloat(funcionario["Proventos"].toString().padEnd(2, "0"))) * 1000;
+				const valorAmericanoLiquido = (parseFloat(funcionario["Líquido"].toString().padEnd(2, "0")));
 				return {
-
 					funcionario: funcionario["Nome do funcionário"],
 					cargo: funcionario["Cargo"].split(' ').slice(2).join(' '),
 					setor: funcionario["Setor"],
 					matricula: funcionario["Matricula"],
 					bruto: valorAmericanoBruto,
-
 					liquido: valorAmericanoLiquido,
-
 				};
 			})
 			.filter(item => item !== null);
@@ -52,10 +37,10 @@ function ordenacao(valor, array) {
 		return array.sort((a, b) => a.cargo.localeCompare(b.cargo));
 	}
 	if (valor === "menorSalario") {
-		return array.sort((a, b) => a.liquido - (b.liquido));
+		return array.sort((a, b) => a.liquido - b.liquido);
 	}
 	if (valor === "maiorSalario") {
-		return array.sort((a, b) => b.liquido - (a.liquido));
+		return array.sort((a, b) => b.liquido - a.liquido);
 	}
 	if (valor === "alfabetica") {
 		return array.sort((a, b) => a.funcionario.localeCompare(b.funcionario));
@@ -77,114 +62,109 @@ function renderizarTabela(funcionarios) {
 	}
 
 	const listaHTML = funcionarios
-                .map(({ funcionario, cargo, setor, matricula, bruto, liquido}) => {
+		.map(({ funcionario, cargo, setor, matricula, bruto, liquido }) => {
+			let valorBrBruto = new Intl.NumberFormat('pt-BR', {
+				style: 'currency',
+				currency: 'BRL'
+			}).format(bruto.toFixed(5));
+			let valorBrLiquido = new Intl.NumberFormat('pt-BR', {
+				style: 'currency',
+				currency: 'BRL'
+			}).format(liquido.toFixed(2));
+			const valorDescontado = new Intl.NumberFormat('pt-BR', {
+				style: 'currency',
+				currency: 'BRL'
+			}).format(bruto.toFixed(5) - liquido.toFixed(2));
 
-                let valorBrBruto = new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL'
-                }).format(bruto.toFixed(5));
-                let valorBrLiquido = new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL'
-                }).format(liquido.toFixed(2));
-                const valorDescontado = new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL'
-                }).format(bruto.toFixed(5) - liquido.toFixed(2));
+			// Adicionado id para cada linha, essencial para o scroll funcionar
+			return (
+				`<tr id="funcionario-${matricula}">
+					<td>${funcionario}</td>
+					<td>${cargo}</td>
+					<td>${setor}</td>
+					<td>${matricula}</td>
+					<td>${valorBrBruto}</td>
+					<td>${valorDescontado}</td>
+					<td>${valorBrLiquido}</td>
+				</tr>`
+			)
+		})
+		.join("");
 
-                return (
-                    `<tr>
-                        <td>${funcionario}</td>
-                        <td>${cargo}</td>
-                        <td>${setor}</td>
-                        <td>${matricula}</td>
-                        <td>${valorBrBruto}</td>
-                        <td>${valorDescontado}</td>
-                        <td>${valorBrLiquido}</td>
-                        </tr>`
-                )
-            }
-        )
-        .join("");
-
-    divFuncionario.innerHTML = listaHTML;
+	divFuncionario.innerHTML = listaHTML;
 }
-
-
 
 function calcularMetricas(funcionarios) {
-    if (!funcionarios.length) return {};
+	if (!funcionarios.length) return {};
 
-    // Calcula o desconto para cada funcionário
-    funcionarios.forEach(f => {
-        f.desconto = f.bruto - f.liquido;
-    });
+	// Calcula o desconto para cada funcionário
+	funcionarios.forEach(f => {
+		f.desconto = f.bruto - f.liquido;
+	});
 
-    const maxLiquido = Math.max(...funcionarios.map(f => f.liquido));
-    const funcsMaiorSalario = funcionarios.filter(f => f.liquido === maxLiquido);
+	const maxLiquido = Math.max(...funcionarios.map(f => f.liquido));
+	const funcsMaiorSalario = funcionarios.filter(f => f.liquido === maxLiquido);
 
-    const minLiquido = Math.min(...funcionarios.map(f => f.liquido));
-    const funcsMenorSalario = funcionarios.filter(f => f.liquido === minLiquido);
+	const minLiquido = Math.min(...funcionarios.map(f => f.liquido));
+	const funcsMenorSalario = funcionarios.filter(f => f.liquido === minLiquido);
 
-    const maxDesconto = Math.max(...funcionarios.map(f => f.desconto));
-    const funcsMaiorDesconto = funcionarios.filter(f => f.desconto === maxDesconto);
+	const maxDesconto = Math.max(...funcionarios.map(f => f.desconto));
+	const funcsMaiorDesconto = funcionarios.filter(f => f.desconto === maxDesconto);
 
-    const minDesconto = Math.min(...funcionarios.map(f => f.desconto));
-    const funcsMenorDesconto = funcionarios.filter(f => f.desconto === minDesconto);
+	const minDesconto = Math.min(...funcionarios.map(f => f.desconto));
+	const funcsMenorDesconto = funcionarios.filter(f => f.desconto === minDesconto);
 
-    const somaLiquidos = funcionarios.reduce((acc, f) => acc + f.liquido, 0).toFixed(2);
-    const mediaSalarial = (funcionarios.reduce((acc, f) => acc + f.liquido, 0) / funcionarios.length).toFixed(2);
-    const variancia = funcionarios.reduce((acc, f) => acc + Math.pow(f.liquido - mediaSalarial, 2), 0) / funcionarios.length;
-    const desvioPadrao = Math.sqrt(variancia).toFixed(2);
+	const somaLiquidos = funcionarios.reduce((acc, f) => acc + f.liquido, 0).toFixed(2);
+	const mediaSalarial = (funcionarios.reduce((acc, f) => acc + f.liquido, 0) / funcionarios.length).toFixed(2);
+	const variancia = funcionarios.reduce((acc, f) => acc + Math.pow(f.liquido - mediaSalarial, 2), 0) / funcionarios.length;
+	const desvioPadrao = Math.sqrt(variancia).toFixed(2);
 
-    return {
-        maiorSalarios: funcsMaiorSalario,
-        menorSalarios: funcsMenorSalario,
-        maiorDescontos: funcsMaiorDesconto,
-        menorDescontos: funcsMenorDesconto,
-        mediaSalarial,
-        desvioPadrao,
-        somaLiquidos
-    };
+	return {
+		maiorSalarios: funcsMaiorSalario,
+		menorSalarios: funcsMenorSalario,
+		maiorDescontos: funcsMaiorDesconto,
+		menorDescontos: funcsMenorDesconto,
+		mediaSalarial,
+		desvioPadrao,
+		somaLiquidos
+	};
 }
-
 
 // Função atualizada para rolar até a linha do funcionário desejado e destacar momentaneamente
 function scrollToRow(id) {
-    const target = document.getElementById(id);
-    if (target) {
-        target.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-        target.classList.add("highlight");
-        setTimeout(() => {
-            target.classList.remove("highlight");
-        }, 2000); // destaque por 2 segundos
-    }
+	const target = document.getElementById(id);
+	if (target) {
+		target.scrollIntoView({
+			behavior: "smooth",
+			block: "center"
+		});
+		target.classList.add("highlight");
+		setTimeout(() => {
+			target.classList.remove("highlight");
+		}, 2000); // destaque por 2 segundos
+	}
 }
 
-
 function exibirMetricas(funcionarios) {
-    const metricas = calcularMetricas(funcionarios);
-    const divMetricas = document.getElementById("metricas");
+	const metricas = calcularMetricas(funcionarios);
+	const divMetricas = document.getElementById("metricas");
 
-    console.log('metricas chamada')
+	console.log('metricas chamada');
 
-    if (!divMetricas) {
-        console.error("Elemento #metricas não encontrado.");
-        return;
-    }
+	if (!divMetricas) {
+		console.error("Elemento #metricas não encontrado.");
+		return;
+	}
 
-    const formatarFuncionarios = (funcs) =>
-        funcs
-        .map(
-            f =>
-            `<a href="#funcionario-${f.matricula}" onclick="scrollToRow('funcionario-${f.matricula}'); return false;" style="text-decoration: none; color: inherit;">${f.funcionario} (${f.setor})</a>`
-        )
-        .join(" | ");
+	const formatarFuncionarios = (funcs) =>
+		funcs
+		.map(
+			f =>
+			`<a href="#funcionario-${f.matricula}" onclick="scrollToRow('funcionario-${f.matricula}'); return false;" style="text-decoration: none; color: inherit;">${f.funcionario} (${f.setor})</a>`
+		)
+		.join(" | ");
 
-    divMetricas.innerHTML = `
+	divMetricas.innerHTML = `
       <h3>Métricas Salariais</h3>
       <ul>
         <li><strong>Maior Salário Líquido:</strong> R$ ${metricas.maiorSalarios[0].liquido.toLocaleString("pt-BR", { minimumFractionDigits: 2 })} - ${formatarFuncionarios(metricas.maiorSalarios)}</li>
@@ -198,11 +178,9 @@ function exibirMetricas(funcionarios) {
     `;
 }
 
-
-
 function vamosRodarAutoBot(funcionarios) {
-	const colunaDePesquisa = document.getElementById('filtragem').value
-	const valor_pesquisa = document.getElementById('pesquisar').value
+	const colunaDePesquisa = document.getElementById('filtragem').value;
+	const valor_pesquisa = document.getElementById('pesquisar').value;
 	const valorDeOrdenacao = document.getElementById("ordenacao").value;
     const botaoFiltragem = document.getElementById("limpaFiltro")
 
@@ -238,8 +216,7 @@ fetchData().then((dados) => {
     const inputDePesquisa = document.getElementById("pesquisar");
     const selectFiltragem = document.getElementById("filtragem");
 
-
-    botaoFiltragem.addEventListener("click", () => vamosRodarAutoBot(dados))
+	botaoFiltragem.addEventListener("click", () => vamosRodarAutoBot(dados))
     selectFiltragem.addEventListener("change", () => vamosRodarAutoBot(dados))
     selectOrdenacao.addEventListener("change", () => vamosRodarAutoBot(dados))
     inputDePesquisa.addEventListener("input", () => vamosRodarAutoBot(dados))
