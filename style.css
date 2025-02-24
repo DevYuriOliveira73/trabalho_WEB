@@ -148,7 +148,7 @@ header {
 }
 
 #corpo {
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
 }
 
 
@@ -174,7 +174,7 @@ td:last-of-type {
     text-align: center;
 }
 
-tbody > tr> td:hover {
+tbody > tr:hover {
     background-color: #5d1b696e !important;
 }
 
@@ -186,8 +186,8 @@ tbody > tr {
 }
 
 .highlight {
-    background-color: red !important;
-    transition: background-color 0.5s ease;
+    background-color: #5d1b69a3 !important;
+    transition: background-color 1.2s ease;
 }
 
 table {
