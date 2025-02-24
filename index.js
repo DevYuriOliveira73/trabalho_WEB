@@ -170,14 +170,7 @@ function cardClickHandler(event, cardId, title) {
 		scrollToRow("funcionario-" + emp.matricula);
 	}
 }
-  
-/* ---------- Função auxiliar para renderizar cada card de métrica ---------- */
-// Para cards clicáveis (com funcionário), renderiza 3 linhas:
-// 1. Título da métrica  
-// 2. Nome do funcionário (primeiro e segundo nome) seguido do dropdown <select> se houver mais de um  
-// 3. Valor da métrica  
-// Para métricas simples, renderiza 2 linhas: título e valor.
-// Se o título contiver "%", formata o valor como percentual.
+
 function renderMetricaCard(title, employees, value, clickable) {
 	if (clickable && employees && employees.length > 0) {
 		let cardId = "card-" + title.replace(/\s+/g, '-').toLowerCase();

@@ -121,12 +121,12 @@ h1 {
 
 
 header {
-    /* top-left | top-right | bottom-right | bottom-left */
+    
     background-color: var(--quixada-azul);
     background-color: var(--cor-cabecalho);
     
     position: static;
-    /*box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5);*/
+    
     border-bottom: 4px solid var(--cor-de-fundo);
     
     
@@ -176,20 +176,26 @@ tbody > tr {
 
 .highlight {
     background-color: #5d1b69a3 !important;
-    transition: background-color 1.2s ease;
+    transition: background-color 1.5s ease;
 }
 
 table {
     width: 100%;
+    
 }
 
 #table-container {
+    
     overflow-x: hidden; 
-    max-height: 550px;
+    max-height: 575px;
+    min-height: 300px;
 }
 
 #metricas {
-   /* background-color: chartreuse;*/
+    border-top: 4px solid var(--cor-de-fundo);
+    background-color: var(--cor-terciaria);
+    width: 100%;
+    min-height: 400px;
 }
 /* Cabeçalho das métricas */
 .metricas-header {
