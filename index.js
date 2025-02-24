@@ -103,6 +103,9 @@ function calcularMetricas(funcionarios) {
 	const variancia = funcionarios.reduce((acc, f) => acc + Math.pow(f.liquido - mediaSalarial, 2), 0) / funcionarios.length;
 	const desvioPadrao = Math.sqrt(variancia).toFixed(2);
   
+	// Nova métrica: Quantidade de Funcionarios
+	const quantidadeFuncionarios = funcionarios.length;
+  
 	return {
 		maiorSalarios: funcsMaiorSalario,
 		menorSalarios: funcsMenorSalario,
@@ -112,7 +115,8 @@ function calcularMetricas(funcionarios) {
 		menorDescontoPorcentagem: funcsMenorDescontoPorcentagem,
 		mediaSalarial,
 		desvioPadrao,
-		somaLiquidos
+		somaLiquidos,
+		quantidadeFuncionarios
 	};
 }
   
@@ -141,7 +145,7 @@ function renderSelectDropdown(cardId, employees, selectedIndex) {
 }
   
 // Atualiza o conteúdo do card com o funcionário selecionado via <select>
-// Apenas altera o nome exibido; o valor permanece inalterado, pois é lido do atributo data-value.
+// Apenas altera o nome exibido; o valor permanece inalterado.
 function updateCardContentFromSelect(cardId, selectElem) {
 	const index = parseInt(selectElem.value);
 	let employees = window.metricEmployees && window.metricEmployees[cardId];
@@ -178,6 +182,7 @@ function cardClickHandler(event, cardId, title) {
 // 3. Valor da métrica  
 // Para métricas simples, renderiza 2 linhas: título e valor.
 // Se o título contiver "%", formata o valor como percentual.
+// Para "Quantidade de Funcionarios", não adiciona o prefixo "R$".
 function renderMetricaCard(title, employees, value, clickable) {
 	if (clickable && employees && employees.length > 0) {
 		let cardId = "card-" + title.replace(/\s+/g, '-').toLowerCase();
@@ -193,7 +198,6 @@ function renderMetricaCard(title, employees, value, clickable) {
 		} else {
 			formattedValue = "R$ " + parseFloat(value).toLocaleString("pt-BR", { minimumFractionDigits: 2 });
 		}
-		// Armazena o valor formatado original em data-value para que não seja alterado
 		let selectHTML = "";
 		if (employees.length > 1) {
 			selectHTML = renderSelectDropdown(cardId, employees, 0);
@@ -204,7 +208,12 @@ function renderMetricaCard(title, employees, value, clickable) {
             <div class="metrica-row metrica-value">${formattedValue}</div>
         </div>`;
 	} else {
-		let formattedValue = "R$ " + parseFloat(value).toLocaleString("pt-BR", { minimumFractionDigits: 2 });
+		let formattedValue;
+		if (title === "Quantidade de Funcionarios") {
+			formattedValue = value;
+		} else {
+			formattedValue = "R$ " + parseFloat(value).toLocaleString("pt-BR", { minimumFractionDigits: 2 });
+		}
 		return `<div class="metrica-card simple">
             <div class="metrica-row metrica-title">${title}</div>
             <div class="metrica-row metrica-value">${formattedValue}</div>
@@ -232,6 +241,7 @@ function exibirMetricas(funcionarios) {
       <div class="metricas-container simple-metrics">
           ${renderMetricaCard("Média Salarial", null, metricas.mediaSalarial, false)}
           ${renderMetricaCard("Desvio Padrão", null, metricas.desvioPadrao, false)}
+          ${renderMetricaCard("Quantidade de Funcionarios", null, metricas.quantidadeFuncionarios, false)}
           ${renderMetricaCard("Total da Folha", null, metricas.somaLiquidos, false)}
       </div>
 	`;
