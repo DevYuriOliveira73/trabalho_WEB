@@ -7,13 +7,21 @@
         <link rel="stylesheet" href="style.css">
         <script src="index.js" defer></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
     </head>
     <body>
         <section class="tela-container">
 
             <header id="header">
 
-                <h1>Dados da Prefeitura de Quixadá</h1>
+                <div>
+                    <h1>Dados da Prefeitura de Quixadá</h1>
+                    <p>Por oferecimento da Cadeira de WEB</p>
+                </div>
                 <!--AREA FILTRO-->
                 <section id="area-filtro">
                     <div class="filtro">
@@ -47,8 +55,8 @@
 
                 
             </header>
-            <main class="tela-main" style="">
-                <div id="table-container" style="overflow-x: hidden; height: 550px;">
+            <main class="tela-main">
+                <div id="table-container" >
                     <table>
                         <thead>
                             <tr>
@@ -61,11 +69,14 @@
                                 <th>Salário Líquido</th>
                             </tr>
                         </thead>
+                        <!--
+                        -->
                         <tbody id="corpo"></tbody>
                     </table>
                 </div>
-                <!-- Container para as métricas -->
-                <div id="metricas"></div>
+                <!-- Container para as métricas 
+                -->
+                <div id="metricas"></div> 
             </main>
             <footer></footer>
         </section>
